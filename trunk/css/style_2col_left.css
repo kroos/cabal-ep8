@@ -249,3 +249,8 @@ textarea
   margin: 15px 0px 5px 0px;
   font-weight: bold;
 }
+
+p.info
+{
+  color: #FF0000;
+}

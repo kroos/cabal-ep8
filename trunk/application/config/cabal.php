@@ -4,7 +4,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 #############################################################################################
 //Website
 $config['server'] = 'Cabal Online';
-$config['website'] = 'http://a3ncabal.dyndns.info';					//http://cabalonline.com/
+$config['website'] = 'http://a3ncabal.dyndns.info';								//http://cabalonline.com/
 $config['forum'] = 'http://a3ncabal.dyndns.info/forum';							//http://cabalonline.com/forum
 $config['version'] = 'EPISODE 8';						//Game version
 $config['exp_rate'] = '5';
@@ -14,13 +14,19 @@ $config['skill_rate'] = '5';
 $config['drop_rate'] = '3';
 
 #############################################################################################
+//Account Creation
+//set FALSE to create and activate account on the fly
+// set it to TRUE to activate account through email
+$config['mailreg'] = TRUE;
+
+#############################################################################################
 //Facebook
 //optional. if u have a fan page just insert the URL of your fan page otherwise leave it blank.
 //more info => https://developers.facebook.com/docs/guides/web/#plugins
 //example : 
-$config['facebook'] = 'https://www.facebook.com/pages/A3-Revive/279787298733680';
+//$config['facebook'] = 'https://www.facebook.com/pages/A3-Revive/279787298733680';
 
-//$config['facebook'] = '';										//if u dont set anything, facebook page will not appear
+$config['facebook'] = '';										//if u dont set anything, facebook page will not appear
 
 #############################################################################################
 //Paypal
@@ -31,7 +37,8 @@ $config['paypickupline'] = 'this should be your donation pick up line. just put 
 #############################################################################################
 //Game Server (CentOS)
 $config['gameserver_ip'] = '127.0.0.1';							//192.168.1.2
-$config['gameserver_port'] = '38101';							//gameserver port
+$config['gameserver_port'] = '80';							//gameserver port
+//$config['gameserver_port'] = '38101';							//gameserver port
 
 //Channel Status
 $config['channels'] = array	
@@ -79,23 +86,28 @@ $config['maxplayers'] = 100;
 
 #############################################################################################
 //Mailer Configurations
-//pop3 server and port
+//pop3 server
 $config['pop3_server'] = 'pop.gmail.com';
 $config['pop3_port'] = 995;
 
 //smtp server
-$config['SMTP_auth'] = TRUE;
+$config['smtp_auth'] = TRUE;
 $config['smtp_server'] = 'smtp.gmail.com';
 $config['smtp_port'] = 465;
-$config['SMTP_Secure'] = 'ssl';
+$config['smtp_secure'] = 'ssl';
+
+//debugging
+$config['mailer_debug'] = 0;									//debug = 0 (no debug), 1 = errors and messages, 2 = messages only
 
 //email account from sender associated to the pop3 n smtp server settings.
-$config['username'] = 'a3outlaw@gmail.com';				//gmail username
-$config['password'] = '0162172420';						//gmail password
-$config['addreplyto_email'] = 'admin@domain.com';		//this might probably differ from $config['username']. Example, admin@domain.com
-$config['addreplyto_name'] = '[GM]Cabal';				//example, [GM]Cabal
-$config['from'] = 'admin@domain.com';					//this might probably differ from $config['username']. Example, admin@domain.com
-$config['from_name'] = '[GM]Cabal';						//example [GM]Cabal
+$config['mailer_username'] = 'a3outlaw@gmail.com';				//gmail username or hosting username
+$config['mailer_password'] = '0162172420';						//gmail password or hosting password
+
+//email behaviour
+$config['addreplyto_email'] = 'admin@domain.com';				//this might probably differ from $config['username']. Example, admin@domain.com
+$config['addreplyto_name'] = '[GM]Cabal';						//example, [GM]Cabal
+$config['from'] = 'admin@domain.com';							//this might probably differ from $config['username']. Example, admin@domain.com
+$config['from_name'] = '[GM]Cabal';								//example [GM]Cabal
 
 #############################################################################################
 //Group & Single Dungeon List

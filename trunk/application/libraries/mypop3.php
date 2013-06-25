@@ -13,7 +13,7 @@ class Mypop3 extends POP3
 				//callback config from Codeigniter
 				$CI =& get_instance();
 
-				$this->Authorise($CI->config->item('pop3_server'), $CI->config->item('pop3_port'), 30, $CI->config->item('username'), $CI->config->item('password'), 1);
+				$this->Authorise($CI->config->item('pop3_server'), $CI->config->item('pop3_port'), 30, $CI->config->item('mailer_username'), $CI->config->item('mailer_password'), $CI->config->item('mailer_debug'));
 			}
 	}
 ?>

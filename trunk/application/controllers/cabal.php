@@ -16,6 +16,10 @@ class Cabal extends CI_Controller {
 		$this->load->view('user/home');
 	}
 
+	public function donate() {
+		$this->load->view('user/donate');
+	}
+
 #############################################################################################################################
 //error 404
 		public function page_missing() {

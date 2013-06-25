@@ -12,6 +12,17 @@
 <div id="nothing"><div class="progress-label">Loading...</div></div>
 <?php endblock()?>
 
+<?php startblock('sidebar1'); ?>
+<?php endblock(); ?>
+
+<?php startblock('sidebar2'); ?>
+<?php endblock(); ?>
+
+<?php startblock('sidebar3'); ?>
+<?php endblock(); ?>
+
+<?php startblock('sidebar4'); ?>
+<?php endblock(); ?>
 
 <?php startblock('jscript') ?>
 <?php echo get_extended_block(); ?>

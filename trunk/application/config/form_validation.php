@@ -98,7 +98,37 @@ $config = array	(
 								'label' => 'Dungeon',
 								'rules' => 'trim|required|xss_clean'
 							),
-					)
+					),
+					'shop/detail' => array
+					(
+						array
+							(
+								'field' => 'qty',
+								'label' => 'Quantity',
+								'rules' => 'trim|required|max_length[5]|greater_than[-1]|is_natural|xss_clean'
+							),
+					),
+					'cabal/change_password' => array
+					(
+						array
+							(
+								'field' => 'currpasswd',
+								'label' => 'Current Password',
+								'rules' => 'trim|required|alpha_dash|max_length[8]|min_length[6]|xss_clean'
+							),
+						array
+							(
+								'field' => 'newpasswd',
+								'label' => 'New Password',
+								'rules' => 'trim|required|alpha_dash|max_length[8]|min_length[6]|xss_clean'
+							),
+						array
+							(
+								'field' => 'rnewpasswd',
+								'label' => 'Retype New Password',
+								'rules' => 'trim|required|alpha_dash|max_length[8]|min_length[6]|matches[newpasswd]|xss_clean'
+							),
+					),
 				);
 /* End of file form_validator.php */
 /* Location: ./application/config/form_validator.php */

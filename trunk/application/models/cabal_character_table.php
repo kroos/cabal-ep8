@@ -19,6 +19,7 @@ class Cabal_character_table extends CI_Model
 			{
 				return $this->db->get_where('Server01.dbo.cabal_character_table', $where ,$limit, $offset);
 			}
+
 //UPDATE
 
 

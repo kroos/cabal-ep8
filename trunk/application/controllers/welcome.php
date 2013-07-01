@@ -17,6 +17,7 @@ class Welcome extends CI_Controller
 					}
 			}
 
+################################################################################################################################
 		public function index()
 			{
 				$this->form_validation->set_error_delimiters('<font color="#FF0000">', '</font>');
@@ -29,11 +30,11 @@ class Welcome extends CI_Controller
 						
 						$er = $this->cabal_auth_table->account($username, $password, $this->input->ip_address());
 						$result = $er->row()->Result;
+						//SET @SUCCESS = 0
+						//SET @NOT_FOUND_ID = 1
+						//SET @BLOCK_ID = 2
+						//SET @BLOCK_IP = 3
 						if($result == 3){
-							//SET @SUCCESS = 0
-							//SET @NOT_FOUND_ID = 1
-							//SET @BLOCK_ID = 2
-							//SET @BLOCK_IP = 3
 							$data['info'] = 'Your IP Address have been blocked. Please refer to the administrator';
 						} else {
 							if($result == 2) {
@@ -43,19 +44,24 @@ class Welcome extends CI_Controller
 									$data['info'] = 'Please check back your username and your password';
 								} else {
 									if($result == 0) {
-										//success login
 										$kl = $this->cabal_auth_table->GetWhere(array('ID' => $username), NULL, NULL);
 										$usernum = $kl->row()->UserNum;
 										$authkey = $kl->row()->AuthKey;
-										$user = array(
-														'authkey' => $authkey,
-														'id_user' => $usernum,
-														'username' => $username,
-														'password' => $password,
-														'logged_in' => TRUE
-														);
-										$this->session->set_userdata($user);
-										redirect('cabal/index', 'location');
+										$on9 = $this->cabal_character_table->GetWhere("CharacterIdx between ($usernum * 8) and ($usernum * 8 + 5) AND Login <> 0", NULL, NULL);
+										if($on9->num_rows() > 0) {
+											$data['info'] = 'Sorry, i cant let you enter the system. '.$on9->num_rows().' of your characters are still online';
+										} else {
+											//success login
+											$user = array(
+															'authkey' => $authkey,
+															'id_user' => $usernum,
+															'username' => $username,
+															'password' => $password,
+															'logged_in' => TRUE
+															);
+											$this->session->set_userdata($user);
+											redirect('cabal/index', 'location');
+										}
 									}
 								}
 							}

@@ -113,6 +113,5 @@ $db['CABALCASH']['swap_pre'] = '';
 $db['CABALCASH']['autoinit'] = TRUE;
 $db['CABALCASH']['stricton'] = FALSE;
 
-
 /* End of file database.php */
 /* Location: ./application/config/database.php */

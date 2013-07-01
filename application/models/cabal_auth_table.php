@@ -25,12 +25,19 @@ class Cabal_auth_table extends CI_Model
 				return $this->db->query("exec Account.dbo.cabalapp_check_account '$id', '$password', '$ip'");
 			}
 
+		function shopauth($usernum, $ip, $authkey) {
+			return $this->db->query("exec Account.dbo.cabal_shop_check_authkey $usernum, '$ip', '$authkey'");
+		}
+
 //UPDATE
 		function update($update, $where)
 			{
 				return $this->db->update('Account.dbo.cabal_auth_table', $update, $where);
 			}
 
+		function passwd($passwd, $usernum) {
+			return $this->db->query("UPDATE Account.dbo.cabal_auth_table SET Password = pwdencrypt('$passwd') WHERE UserNum = $usernum");
+		}
 //INSERT
 		function create($id, $password, $email, $question, $answer, $ip)
 			{

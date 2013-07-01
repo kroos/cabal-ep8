@@ -5,7 +5,7 @@
 <p></p>
 <p class="info"><?php echo @$info; ?></p>
 
-
+<p>tak tau lagi apa nak boh kat sini.... :)</p>
 
 <?php endblock() ?>
 

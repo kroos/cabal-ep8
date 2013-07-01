@@ -39,6 +39,7 @@
 */
 
 $route['default_controller'] = "welcome";
+$route['shop/detail/(:num)/(:any)/(:num)/(:num)'] = "shop/detail";
 $route['404_override'] = 'error/page_missing';
 
 

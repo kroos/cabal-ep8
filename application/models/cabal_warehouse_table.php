@@ -27,7 +27,7 @@ class Cabal_warehouse_table extends CI_Model
 
 //UPDATE
 		function update($update, $where) {
-			return $this->db->update($update, $where);
+			return $this->db->update('Server01.dbo.cabal_warehouse_table', $update, $where);
 		}
 
 		function setalz($usernum, $alz, $reserved)

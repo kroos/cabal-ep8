@@ -51,8 +51,6 @@ class Cabal extends CI_Controller {
 
 	public function account() {
 		$this->load->model('cabal_warehouse_table');
-		$data['warehouse'] = $this->cabal_warehouse_table->getalz($this->session->userdata('id_user'))->row();
-		$data['bank'] = $this->bank->get_alz($this->session->userdata('id_user'))->row();
 
 		$this->form_validation->set_error_delimiters('&nbsp;&nbsp;<font color="#FF0000">', '</font>&nbsp;&nbsp;');
 		if ($this->input->post('withdraw', TRUE)) {
@@ -64,10 +62,179 @@ class Cabal extends CI_Controller {
 		}
 
 		if ($this->form_validation->run() == TRUE) {
-			
+			if ($this->input->post('withdraw', TRUE)) {
+				$withdraw = $this->input->post('alzwithdraw', TRUE);
+				$walz = $this->cabal_warehouse_table->getalz($this->session->userdata('id_user'))->row()->Alz - $withdraw;
+				if ($walz < 0) {
+					$data['info'] = 'Sorry, you withdraw more than you have in your warehouse';
+				} else {
+					$r = $this->cabal_warehouse_table->update(array('Alz' => $walz), array('UserNum' => $this->session->userdata('id_user')));
+					$p = $this->bank->get_alz($this->session->userdata('id_user'))->row()->Alz + $withdraw;
+					$m = $this->bank->update_alz($this->session->userdata('id_user'), $p);
+					if (!$r && !$m) {
+						$data['info'] = 'Sorry, internal server error. Please try again later';
+					} else {
+						$data['info'] = 'Success withdraw from warehouse to the bank';
+					}
+				}
+			} else {
+				if ($this->input->post('deposit', TRUE)) {
+					$deposit = $this->input->post('alzdeposit', TRUE);
+					$r = $this->bank->get_alz($this->session->userdata('id_user'))->row()->Alz - $deposit;
+					if ($r < 0) {
+						$data['info'] = 'Sorry, you withdraw more than you have in your bank.';
+					} else {
+						$b = $this->cabal_warehouse_table->getalz($this->session->userdata('id_user'))->row()->Alz + $deposit;
+						$n = $this->bank->update_alz($this->session->userdata('id_user'), $r);
+						$n1 = $this->cabal_warehouse_table->update(array('Alz' => $b), array('UserNum' => $this->session->userdata('id_user')));
+						if (!$n && !$n1) {
+							$data['info'] = 'Sorry, internal server error. Please try again later';
+						} else {
+							$data['info'] = 'Success withdraw from bank to the warehouse';
+						}
+					}
+				}
+			}
 		}
-
+		$data['warehouse'] = $this->cabal_warehouse_table->getalz($this->session->userdata('id_user'))->row();
+		$data['bank'] = $this->bank->get_alz($this->session->userdata('id_user'))->row();
 		$this->load->view('user/account', $data);
+	}
+
+	public function rebirth() {
+		$this->form_validation->set_error_delimiters('&nbsp;&nbsp;<font color="#FF0000">', '</font>&nbsp;&nbsp;');
+		if ($this->form_validation->run() == TRUE) {
+			if ($this->input->post('rebirth', TRUE)) {
+				$char = $this->input->post('character', TRUE);
+
+				$t = $this->cabal_character_table->GetWhere(array('CharacterIdx' => $char), NULL, NULL);
+
+				//--------------------check level rebirth----------------------------
+				$rblvl = $t->row()->Rebirth;
+
+				//--------------------check char level--------------------------
+				$charlvl = $t->row()->LEV;
+
+				//--------------------check online----------------------------------
+				$rbonline = $t->row()->Login;
+				//echo $rbonline.' rbonline<br />';
+
+				//--------------------check wz----------------------------------
+				$t1 = $this->bank->get_alz($this->session->userdata('id_user'));
+				$rbwz = $t1->row()->Alz;
+
+				//---------------------------rebirth operation----------------------------------------------------
+				//initializing lvl to rebirth
+				$charlvlforrb = $rblvl + $this->config->item('rebirth_level');
+				//initializing rebirth lvl
+				$rblvlforrb = $rblvl + 1;
+				//initializing wz for rebirth
+				$wzforrb = $this->config->item('rebirth_wz') * $rblvl;
+				//balance wz
+				$sqlwz = $rbwz - $wzforrb;
+				$sqlrblvl = $rblvl + 1;
+
+				//check online
+				if ($rbonline < 1) {
+					//1st we check lvl
+					if ($charlvl >= $charlvlforrb) {
+						//then we check its wz
+						if ($rbwz >= $wzforrb) {
+							//change the exp value to 0
+							$rssuccess1 = $this->bank->update_alz($char, $sqlwz);
+							$rssuccess = $this->cabal_character_table->update(array('LEV' => 1, 'EXP' => 0, 'Rebirth' => $sqlrblvl), array('CharacterIdx' => $char));
+							if (!$rssuccess && !$rssuccess) {
+								$data['info'] = 'Sorry, internal server error, please try again later';
+							} else {
+								$data['info'] = "Successfully rebirth";
+							}
+						} else {
+							$data['info'] = "You need at least $wzforrb Alz for rebirth level $rblvl";
+						}
+					} else {
+						$data['info'] = "You need at least level $charlvlforrb for rebirth level $rblvl";
+					}
+				} else {
+					$data['info'] = 'Character online. Please logoff from game and try again';
+				}
+			}
+		}
+		$data['query'] = $this->cabal_character_table->GetWhere("CharacterIdx between ({$this->session->userdata('id_user')} * 8) and (({$this->session->userdata('id_user')} * 8) + 5)", NULL, NULL);
+		$this->load->view('user/rebirth', $data);
+	}
+
+	public function reset_rebirth() {
+		$this->form_validation->set_error_delimiters('&nbsp;&nbsp;<font color="#FF0000">', '</font>&nbsp;&nbsp;');
+		if ($this->form_validation->run() == TRUE) {
+			if ($this->input->post('reset_rebirth', TRUE)) {
+				$char = $this->input->post('character', TRUE);
+
+				$t = $this->cabal_character_table->GetWhere(array('CharacterIdx' => $char), NULL, NULL);
+
+				//--------------------check level rebirth----------------------------
+				$rblvl = $t->row()->Rebirth;
+
+				//--------------------check char level--------------------------
+				$charlvl = $t->row()->LEV;
+
+				//--------------------check online----------------------------------
+				$rbonline = $t->row()->Login;
+				//echo $rbonline.' rbonline<br />';
+
+				//--------------------check wz----------------------------------
+				$t1 = $this->bank->get_alz($this->session->userdata('id_user'));
+				$rbwz = $t1->row()->Alz;
+
+				//---------------------------rebirth operation----------------------------------------------------
+				//initializing lvl to rebirth
+				$charlvlforrb = $rblvl + $this->config->item('rebirth_level');
+				//initializing rebirth lvl
+				$rblvlforrb = $rblvl + 1;
+				//initializing wz for rebirth
+				$wzforrb = $this->config->item('rebirth_wz') * $rblvl;
+				//balance wz
+				$sqlwz = $rbwz - $wzforrb;
+				$sqlrblvl = $rblvl + 1;
+
+				//---------------------------reset rebirth operation----------------------------------------------------
+				//check online
+				if ($rbonline < 1) {
+					//1st we check rb times, it should be no more than 2 times rb
+					if ($rblvl < $this->config->item('rrebirthcapped')) {
+						//1st we check rebirth level
+						if ($rblvl >= $this->config->item('rebirth_count')) {
+							//then we check the wz
+							if ($rbwz >= $this->config->item('alzresetrebirth')) {
+
+								//initialize wz balance
+								$wz = $rbwz - $this->config->item('alzresetrebirth');
+
+								//initialize reset rb times
+								$resetrb = $rblvl + 1;
+								$rson1 = $this->bank->update_alz($char, $wz);
+
+								$rson = $this->cabal_character_table->update(array('Rebirth' => 0, 'Reset' => $resetrb), array('CharacterIdx' => $char));
+								if (!$rson && !$rson1) {
+									$data['info'] = 'Sorry, internal server error, please try again later';
+								} else {
+									$data['info'] = 'Successful reset rebirth';
+								}
+							} else {
+								$data['info'] = "Insufficient Alz, your character only have $rbwz Alz";
+							}
+						} else {
+							$data['info'] = "Character rebirth level is $rblvl, Character needs to have at least rebirth level ".$this->config->item('rebirth_count')." to reset its rebirth";
+						}
+					} else {
+						$data['info'] = 'You are now a god in this server, you cant reset rebirth anymore';
+					}
+				} else {
+					$data['info'] = 'Character online. Please logoff from game and try again';
+				}
+			}
+		}
+		$data['query'] = $this->cabal_character_table->GetWhere("CharacterIdx between ({$this->session->userdata('id_user')} * 8) and (({$this->session->userdata('id_user')} * 8) + 5)", NULL, NULL);
+		$this->load->view('user/reset_rebirth', $data);
 	}
 #############################################################################################################################
 //error 404

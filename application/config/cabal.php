@@ -144,6 +144,7 @@ $config['GroupDungeonList'] = array
 #############################################################################################
 //Rebirth
 $config['rebirth_level'] = 150;			//starting level that character can begin a rebirth
+$config['max_level'] = 200;				//maximum level a character can reach
 $config['rebirth_alz'] = 500000;		//alz needed to perform rebirth
 
 #############################################################################################

@@ -129,6 +129,24 @@ $config = array	(
 								'rules' => 'trim|required|alpha_dash|max_length[8]|min_length[6]|matches[newpasswd]|xss_clean'
 							),
 					),
+					'cabal/rebirth' => array
+					(
+						array
+							(
+								'field' => 'character',
+								'label' => 'Character',
+								'rules' => 'trim|required|min_length[1]|is_natural_no_zero|xss_clean'
+							)
+					),
+					'cabal/reset_rebirth' => array
+					(
+						array
+							(
+								'field' => 'character',
+								'label' => 'Character',
+								'rules' => 'trim|required|min_length[1]|is_natural_no_zero|xss_clean'
+							)
+					),
 				);
 /* End of file form_validator.php */
 /* Location: ./application/config/form_validator.php */

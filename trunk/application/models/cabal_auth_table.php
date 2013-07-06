@@ -29,20 +29,28 @@ class Cabal_auth_table extends CI_Model
 			return $this->db->query("exec Account.dbo.cabal_shop_check_authkey $usernum, '$ip', '$authkey'");
 		}
 
+
 //UPDATE
-		function update($update, $where)
-			{
-				return $this->db->update('Account.dbo.cabal_auth_table', $update, $where);
-			}
+		function update($update, $where) {
+			return $this->db->update('Account.dbo.cabal_auth_table', $update, $where);
+		}
 
 		function passwd($passwd, $usernum) {
 			return $this->db->query("UPDATE Account.dbo.cabal_auth_table SET Password = pwdencrypt('$passwd') WHERE UserNum = $usernum");
 		}
+
+		function ban($usernum, $date, $authtype) {
+			return $this->db->query("exec Account.dbo.cabal_sp_register_block_user $usernum, '$date', '$authtype'");
+		}
+
+		public function unban_user($usernum) {
+			return $this->db->query("exec Account.dbo.cabal_tool_ReleaseBlockUser $usernum");
+		}
+
 //INSERT
-		function create($id, $password, $email, $question, $answer, $ip)
-			{
-				return $this->db->query("exec Account.dbo.cabal_tool_registerAccount_web '$id', '$password', '$email', '$question', '$answer', '$ip'");
-			}
+		function create($id, $password, $email, $question, $answer, $ip) {
+			return $this->db->query("exec Account.dbo.cabal_tool_registerAccount_web '$id', '$password', '$email', '$question', '$answer', '$ip'");
+		}
 
 //DELETE
 

@@ -38,7 +38,7 @@ class Welcome extends CI_Controller
 							$data['info'] = 'Your IP Address have been blocked. Please refer to the administrator';
 						} else {
 							if($result == 2) {
-								$data['info'] = 'Your account have been blocked. Please refer to your administrator';
+								$data['info'] = 'Your account have been banned. Please refer to your administrator';
 							} else {
 								if($result == 1) {
 									$data['info'] = 'Please check back your username and your password';

@@ -37,8 +37,7 @@ $config['paypickupline'] = 'this should be your donation pick up line. just put 
 #############################################################################################
 //Game Server (CentOS)
 $config['gameserver_ip'] = '127.0.0.1';							//192.168.1.2
-$config['gameserver_port'] = '80';							//gameserver port
-//$config['gameserver_port'] = '38101';							//gameserver port
+$config['gameserver_port'] = '38101';							//gameserver port
 
 //Channel Status
 $config['channels'] = array	
@@ -113,6 +112,7 @@ $config['from_name'] = '[GM]Cabal';								//example [GM]Cabal
 //Group & Single Dungeon List
 $config['SingleDungeonList'] = array
 									(
+										'' => 'Select',
 										'The Lake in Dusk' => 'Lake in Dusk',
 										'Ruina Station' => 'Ruina Station',
 										'Frozen Tower of Undead(B1F)' => 'Frozen Tower of Undead(B1F)',
@@ -128,6 +128,7 @@ $config['SingleDungeonList'] = array
 
 $config['GroupDungeonList'] = array
 									(
+										'' => 'Select',
 										'The Lake in Dusk' => 'Lake in Dusk',
 										'Ruina Station' => 'Ruina Station',
 										'Frozen Tower of Undead(B1F)' => 'Frozen Tower of Undead(B1F)',
@@ -162,6 +163,7 @@ $config['resetrank'] = array
 //item duration
 $config['idur'] = array
 						(
+							'' => 'Select',
 							1 => '1 hour',
 							2 => '3 hour',
 							3 => '5 hour',
@@ -215,6 +217,7 @@ $config['Type'] = array
 //service kinds features as of in the const.scp
 $config['ServiceKind'] = array
 								(
+									'' => 'Select',
 									0 => '+25% Exp, Skill Exp, Drop, Craft',
 									1 => '+25% Craft & Inventory & Warehouse',
 									2 => '+25% Exp & Inventory & Warehouse',
@@ -230,6 +233,7 @@ $config['ServiceKind'] = array
 //Map
 $config['map'] = array
 						(
+							'' => 'Select',
 							1 => 'Bloody Ice',
 							2 => 'Desert Scream',
 							3 => 'Green Despair',
@@ -266,6 +270,7 @@ $config['map'] = array
 //Nation
 $config['nation'] = array
 					(
+						'' => 'Select',
 						0 => 'Neutral',
 						1 => 'Capella',
 						2 => 'Procyon',
@@ -277,6 +282,7 @@ $config['nation'] = array
 //look at the 'cabal_character_table', column MapsBField and WarpBField
 $config['wmcode'] = array
 						(
+							'' => 'Select',
 							0 => 'No maps and warp',
 							1 => '1 map or warp',
 							2 => '2 maps or warp',
@@ -295,6 +301,7 @@ $config['wmcode'] = array
 //look at the 'cabal_character_table', column Style
 $config['style'] = array
 						(
+							'' => 'Select',
 							0 => 'Rank 1',
 							8 => 'Rank 2',
 							16 => 'Rank 3',
@@ -318,8 +325,5 @@ $config['style'] = array
 							160 => 'Rank 21'
 						);
 #############################################################################################
-#############################################################################################
-
-
 /* End of file cabal.php */
 /* Location: ./application/config/cabal.php */

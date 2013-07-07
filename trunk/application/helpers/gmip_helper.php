@@ -1,18 +1,14 @@
 <?php
 function gmip($int) {
-	$z = fmod($int, 16777216);
-	$a = ($int - $z) / 16777216;
+	$a = ($int - (fmod($int, 16777216))) / 16777216;
 	//return $a;
 
-	$y = fmod($z, 65536);
-	$b = ($z - $y) / 65536;
+	$b = ($z - (fmod($z, 65536))) / 65536;
 	//return $a.'.'.$b;
 
-	$x = fmod($y, 256);
-	$c = ($y - $x) / 256;
+	$c = ($y - (fmod($y, 256))) / 256;
 
-	$w = fmod($x, 1);
-	$d = ($x - $w);
+	$d = ($x - (fmod($x, 1)));
 	return $a.'.'.$b.'.'.$c.'.'.$d;
 }
 ?>

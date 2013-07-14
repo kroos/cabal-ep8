@@ -16,10 +16,17 @@ class Shop extends CI_Controller {
 
 		//authenticate
 		$g = $this->cabal_auth_table->shopauth($this->uri->segment(3, 0), $this->input->ip_address(), $this->uri->segment(4, 0));
-		if($this->uri->segment(2, 0) != 'unauthorised' && $g->row()->Ret != 0 && $g->row()->UserID == NULL) {
-			redirect('shop/unauthorised/'.$this->uri->segment(3, 0).'/'.$this->uri->segment(4, 0), 'location');
+		if($g->row()->Ret == 0 && $g->row()->UserID != NULL) {
+			//reverse logic
+		} else {
+			if ($this->uri->segment(2, 0) == 'unauthorised') {
+				//reverse logic
+			} else {
+				redirect('shop/unauthorised/'.$this->uri->segment(3, 0).'/'.$this->uri->segment(4, 0), 'location');
+				//echo $g->row()->Ret.'<br />'.$this->uri->segment(2, 0);
+			}
 		}
-
+		
 	}
 #############################################################################################################################
 
@@ -28,7 +35,6 @@ class Shop extends CI_Controller {
 		$v1 = $this->uri->segment(3, 0);
 		$v2 = $this->uri->segment(4, 0);
 		$v3 = $this->uri->segment(5, 0);
-
 
 		if($v3 == 0) {
 			foreach ($this->category->GetAll(NULL, NULL)->result() AS $d) {

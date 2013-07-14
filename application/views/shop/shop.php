@@ -8,7 +8,7 @@
 <?php if($ty->num_rows() < 1): ?>
 	<p>No item in this category</p>
 <?php else : ?>
-<table width="100%" border="1" cellspacing="2" cellpadding="2">
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
 	<tr>
 		<th scope="col">&nbsp;</th>
 		<th scope="col">Name</th>

@@ -107,6 +107,12 @@ $config = array	(
 								'label' => 'Quantity',
 								'rules' => 'trim|required|max_length[5]|greater_than[-1]|is_natural|xss_clean'
 							),
+						array
+							(
+								'field' => 'product_name',
+								'label' => 'Name',
+								'rules' => 'trim|required|htmlspecialchars|xss_clean'
+							),
 					),
 					'cabal/change_password' => array
 					(
@@ -155,6 +161,30 @@ $config = array	(
 								'label' => 'Character',
 								'rules' => 'trim|required|alpha_numeric|xss_clean'
 							)
+					),
+					'admin/ecoins' => array
+					(
+						array
+							(
+								'field' => 'char',
+								'label' => 'Character',
+								'rules' => 'trim|required|alpha_numeric|xss_clean'
+							)
+					),
+					'admin/add_ecoin' => array
+					(
+						array
+							(
+								'field' => 'cash',
+								'label' => 'E-coin',
+								'rules' => 'trim|required|is_natural|greater_than[-1]|xss_clean'
+							),
+						array
+							(
+								'field' => 'cashbonus',
+								'label' => 'E-Coin Bonus',
+								'rules' => 'trim|required|is_natural|greater_than[-1]|xss_clean'
+							),
 					),
 					'admin/edit_account' => array
 					(

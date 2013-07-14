@@ -38,8 +38,9 @@
 |
 */
 
-$route['default_controller'] = "welcome";
-$route['shop/detail/(:num)/(:any)/(:num)/(:num)'] = "shop/detail";
+$route['default_controller'] = 'welcome';
+$route['shop/detail/(:num)/(:any)/(:num)/(:num)'] = 'shop/detail';
+$route['admin/add_ecoin/(:num)/(:any)'] = 'admin/add_ecoin';
 $route['404_override'] = 'error/page_missing';
 
 

@@ -67,7 +67,7 @@ class Admin extends CI_Controller {
 						$data['info'] = '';
 					}
 				} else {
-
+					$data['info'] = '';
 				}
 			}
 		}
@@ -112,6 +112,68 @@ class Admin extends CI_Controller {
 			}
 		}
 		$this->load->view('admin/edit_account', $data);
+	}
+
+	public function ecoins() {
+		$this->form_validation->set_error_delimiters('&nbsp;&nbsp;<font color="#FF0000">', '</font>&nbsp;&nbsp;');
+		if ($this->form_validation->run() == TRUE) {
+			if($this->input->post('search', TRUE)) {
+				$char = $this->input->post('char', TRUE);
+				$data['query'] = $this->cabal_character_table->GetWhere("Name LIKE '%$char%'", NULL, NULL);
+				if($data['query']->num_rows() < 1) {
+					$data['info'] = 'Cant find the character you are looking for, Please check the spelling';
+				} else {
+					$data['info'] = 'Click on the character name to proceed';
+				}
+			}
+		}
+		$this->load->view('admin/ecoins', @$data);
+	}
+
+	public function add_ecoin() {
+		$this->load->model('cashaccount');
+		$charid = $this->uri->segment(3, 0);
+		$user = $this->uri->segment(4, 0);
+		if($charid == 0) {
+			redirect('admin/ecoins', 'location');
+		} else {
+			$this->form_validation->set_error_delimiters('&nbsp;&nbsp;<font color="#FF0000">', '</font>&nbsp;&nbsp;');
+			if ($this->form_validation->run() == TRUE) {
+				if($this->input->post('add_ecoins', TRUE)) {
+					$nm =  $this->input->post('cash', TRUE) + $this->input->post('cashbonus', TRUE);
+					if($nm > 10000000000) {
+						$data['info'] = 'Please make sure that E-Coins is not exceed 10,000,000,000';
+					} else {
+						$lk = $this->cashaccount->GetWhere(array('ID' => $user, 'UserNum' => $charid), NULL, NULL);
+						if($lk->num_rows() < 1) {
+							$array = array(
+								'ID' => $user,
+								'UserNum' => $charid,
+								'Cash' => $this->input->post('cash', TRUE),
+								'CashBonus' => $this->input->post('cashbonus', TRUE)
+								);
+							$kj = $this->cashaccount->insert($array);
+							if($kj) {
+								$data['info'] = 'Success inserting E-Coins';
+							} else {
+								$data['info'] = 'Please try again later';
+							}
+						} else {
+							$where = array('ID' => $user, 'UserNum' => $charid);
+							$update = array('Cash' => $this->input->post('cash', TRUE), 'CashBonus' => $this->input->post('cashbonus', TRUE));
+							$kj = $this->cashaccount->update($where, $update);
+							if($kj) {
+								$data['info'] = 'Success inserting E-Coins';
+							} else {
+								$data['info'] = 'Please try again later';
+							}
+						}
+					}
+				}
+			}
+		}
+		$data['ec'] = $this->cashaccount->GetWhere(array('UserNum' => $charid, 'ID' => $user), NULL, NULL);
+		$this->load->view('admin/add_ecoin', @$data);
 	}
 
 	public function hackuserlog() {

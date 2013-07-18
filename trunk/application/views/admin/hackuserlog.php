@@ -19,10 +19,9 @@
 		</tr>
 	<?php foreach($query->result() as $p): ?>
 		<tr>
-			<td><?php echo anchor('admin/cabal/ban_user/'.$p->userNum, 'Ban '.$p->userNum) ?></td>
+			<td><?php echo anchor('admin/ban_user/'.$p->userNum, 'Ban '.$p->userNum) ?></td>
 		<?php
-		$this->load->database('GAMEDB', TRUE);
-		$r = $this->cabal_character_table->charid($p->characterIdx)->row()->Name; ?>
+		$r = $this->cabal_character_table->GetWhere(array('CharacterIdx' => $p->characterIdx), NULL, NULL)->row()->Name; ?>
 			<td><?php echo $r ?></td>
 
 		<?php if(floatval(phpversion()) > '5.3'): ?>

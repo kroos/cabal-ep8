@@ -35,7 +35,7 @@ class Cabal_hackuser_list extends CI_Model
 
 //TRUNCATE
 	function truncate() {
-		return $this->db->truncate('Account.dbo.cabal_hackuser_list');
+		return $this->db->query('truncate table Account.dbo.cabal_hackuser_list');
 	}
 #############################################################################################################################
 	}

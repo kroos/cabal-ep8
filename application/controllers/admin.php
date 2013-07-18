@@ -182,13 +182,30 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/hackuserlog', $data);
 	}
 
+	public function ban_user() {
+		$usernum = $this->uri->segment(3, 0);
+		if (is_numeric($usernum)) {
+			$t = $this->cabal_auth_table->ban($usernum, '2020-01-01 00:00:00', '2');
+			if (!$t) {
+				$data['info'] = 'Please try again later.';
+				$this->load->view('admin/hackuserlog', $data);
+			} else {
+				redirect('admin/hackuserlog', 'location');
+			}
+		} else {
+			redirect(base_url(), 'location');
+		}
+	}
+
 	public function del_hackuserlog() {
+		$this->load->model('cabal_hackuser_list');
 		$r = $this->cabal_hackuser_list->truncate();
 		if($r) {
 			$data['info'] = 'Successfully clear the log';
 		} else {
 			$data['info'] = 'Unable to delete all the logs. Please try again later';
 		}
+		$data['query'] = $this->cabal_hackuser_list->GetAll(NULL, NULL);
 		$this->load->view('admin/hackuserlog', $data);
 	}
 

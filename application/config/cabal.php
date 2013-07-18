@@ -36,7 +36,7 @@ $config['paypickupline'] = 'this should be your donation pick up line. just put 
 
 #############################################################################################
 //Game Server (CentOS)
-$config['gameserver_ip'] = '127.0.0.1';							//192.168.1.2
+$config['gameserver_ip'] = '192.168.1.9';							//192.168.1.2
 $config['gameserver_port'] = '38101';							//gameserver port
 
 //Channel Status
@@ -76,7 +76,7 @@ $config['channels'] = array
 													'number'	=>	10,
 													'type'		=>	16908368,
 													'name'		=>	'Channel 10 (TG)',
-													'port'		=>	38116
+													'port'		=>	38127
 												)
 							);
 

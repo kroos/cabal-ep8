@@ -16,7 +16,7 @@
 		<?php $rbirthwz = $this->config->item('rebirth_alz') * ($rbirth - 1) ?>
 		<tr><td align='center'><?php echo $rbirth?></td>
 		<td align='center'><?php echo $i ?></td>
-		<td align='center'><?php echo $rbirthwz ?> wz</td></tr>
+		<td align='center'><?php echo $rbirthwz ?> Alz</td></tr>
 <?php endfor ?>
 </table>
 

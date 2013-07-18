@@ -23,7 +23,7 @@
 		<li><?php echo anchor('admin/ecoins', 'add e-coin', ($this->uri->uri_string() == 'admin/ecoins') ? 'class="current" title="add e-coin"' : ' title="add e-coin"')?></li>
 		<li><?php echo anchor('admin/hackuserlog', 'hack user log', ($this->uri->uri_string() == 'admin/hackuserlog') ? 'class="current" title="hack user log"' : ' title="hack user log"')?></li>
 		<li><?php echo anchor('admin/ban_account', 'ban account', ($this->uri->uri_string() == 'admin/ban_account') ? 'class="current" title="ban account"' : ' title="ban account"')?></li>
-		<li><?php echo anchor('admin/unban_account', 'unban account', ($this->uri->uri_string() == 'unban_account') ? 'class="current" title="unban account"' : ' title="unban account"')?></li>
+		<li><?php echo anchor('admin/unban_account', 'unban account', ($this->uri->uri_string() == 'admin/unban_account') ? 'class="current" title="unban account"' : ' title="unban account"')?></li>
 		<li><?php echo anchor('admin/char_stats_search', 'char stats', ($this->uri->uri_string() == 'admin/char_stats_search') ? 'class="current" title="char stats"' : ' title="char stats"')?></li>
 		<li><?php echo anchor('admin/gmip', 'game master IP', ($this->uri->uri_string() == 'admin/gmip') ? 'class="current" title="block IP"' : ' title="block IP"')?></li>
 		<li><?php echo anchor('admin/block_ip', 'block IP', ($this->uri->uri_string() == 'admin/block_ip') ? 'class="current" title="game master IP"' : ' title="game master IP"')?></li>

@@ -9,49 +9,53 @@
 <?if($edit->num_rows() == 1):?>
 	<?foreach($edit->result() as $r)?>
 		<div class="demo">
-		<?=form_open()?>
+		<?php echo form_open()?>
 		<table border="0" cellpadding="2" width="100%">
 			<tr>
 				<td>Item Name : </td>
-				<td><?=form_input(array('name' => 'item_name', 'value' => $r->Name, 'size' => 30, 'maxlength'   => 30))?><?=form_error('item_name')?></td>
+				<td><?php echo form_input('item_name', $r->Name).form_error('item_name')?></td>
 			</tr>
 			<tr>
 				<td>Item Description : </td>
-				<td><?=form_textarea(array('name' => 'item_desc', 'value' => $r->Description, 'cols' => 30, 'rows'   => 3))?><?=form_error('item_desc')?></td>
+				<td><?php echo form_textarea('item_desc', $r->Description).form_error('item_desc')?></td>
 			</tr>
 			<tr>
 				<td>Item Id : </td>
-				<td><?=form_input(array('name' => 'item_id', 'value' => $r->ItemIdx, 'size' => 30, 'maxlength'   => 30))?><?=form_error('item_id')?></td>
+				<td><?php echo form_input('item_id', $r->ItemIdx).form_error('item_id')?></td>
 			</tr>
 			<tr>
 				<td>Item Option : </td>
-				<td><?=form_input(array('name' => 'item_opt', 'value' => $r->ItemOpt, 'size' => 30, 'maxlength'   => 30))?><?=form_error('item_opt')?></td>
+				<td><?php echo form_input('item_opt', $r->ItemOpt).form_error('item_opt')?></td>
 			</tr>
 			<tr>
 				<td>Duration</td>
-				<td><?=form_dropdown('iduration', $idur, $r->DurationIdx)?><?=form_error('iduration')?></td>
+				<td><?php echo form_dropdown('iduration', $idur, $r->DurationIdx).form_error('iduration')?></td>
 			</tr>
 			<tr>
 				<td>Item Image : </td>
-				<td><?=form_input(array('name' => 'item_img', 'value' => $r->Image, 'size' => 30, 'maxlength'   => 30))?><?=form_error('item_img')?><br />example : http://yourdomain.com/images/shop/abc.jpeg<br />OR<br />http://imagehosting.com/234/dfgcv</td>
+				<td><?php echo form_input('item_img', $r->Image).form_error('item_img')?><br />example : http://yourdomain.com/images/shop/abc.jpeg<br />OR<br />http://imagehosting.com/234/dfgcv</td>
 			</tr>
 			<tr>
 				<td>Item Alz Cost : </td>
-				<td><?=form_input(array('name' => 'item_alz', 'value' => $r->Alz, 'size' => 30, 'maxlength'   => 30))?><?=form_error('item_alz')?></td>
+				<td><?php echo form_input('item_alz', $r->Alz).form_error('item_alz')?></td>
 			</tr>
 			<tr>
+			<?php foreach($cate->result() AS $fg) {
+				$cats[$fg->id] = $fg->category;
+			}
+			?>
 				<td>Item Category : </td>
-				<td><?=form_dropdown('item_cat', $cats, $r->Category)?><?=form_error('item_cat')?></td>
+				<td><?php echo form_dropdown('item_cat', $cats, $r->Category).form_error('item_cat')?></td>
 			</tr>
 			<tr>
 				<td>Item Available : </td>
-				<td><?=form_input(array('name' => 'item_avail', 'value' => $r->Available, 'size' => 30, 'maxlength'   => 30))?><?=form_error('item_avail')?></td>
+				<td><?php echo form_input('item_avail', $r->Available).form_error('item_avail')?></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><?=form_submit('edit_item', 'Edit Item')?></td>
+				<td colspan="2" align="center"><?php echo form_submit('edit_item', 'Edit Item')?></td>
 			</tr>
 		</table>
-		<?=form_close()?>
+		<?php echo form_close()?>
 		</div>
 <?else:?>
 <?endif?>

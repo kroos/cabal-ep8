@@ -114,7 +114,7 @@ class Shopadmin extends CI_Controller {
 				}
 			}
 		}
-		$data['edit'] = $this->shopitems->GetWhere(array('Id' => $id), NULL, NULL);
+		$data['edit'] = $this->shopitems->GetWhere(array('Id' => $item), NULL, NULL);
 		$data['cate'] = $this->category->GetAll(NULL, NULL);
 		$data['idur'] = $this->config->item('idur');
 		$this->load->view('admin/edit_item', $data);

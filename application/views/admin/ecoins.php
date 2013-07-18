@@ -29,6 +29,9 @@
 <?php echo form_close() ?>
 
 <?php if($this->form_validation->run() == TRUE): ?>
+	<?php if ($query->num_rows() < 1): ?>
+		<p>Sorry, no data</p>
+	<?php else: ?>
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
 <tr>
 	<th>Id</th><th>Character</th>
@@ -44,6 +47,7 @@ $user = $this->cabal_auth_table->GetWhere(array('UserNum' => $usernum), NULL, NU
 	</tr>
 <?php endforeach ?>
 </table>
+<?php endif ?>
 <?php endif ?>
 </div>
 <?php endblock() ?>

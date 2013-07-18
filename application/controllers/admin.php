@@ -55,7 +55,7 @@ class Admin extends CI_Controller {
 
 				$data['query'] = $this->cabal_character_table->GetWhere("Name LIKE '%$char%'", NULL, NULL);
 				$valid = $data['query']->num_rows();
-				if ($valid == 1) {
+				if ($valid >= 1) {
 					$charidx = $data['query']->row()->CharacterIdx;
 					$f = fmod($charidx, 8);
 					if (0 <= $f && $f <= 5) {
@@ -121,7 +121,7 @@ class Admin extends CI_Controller {
 				$char = $this->input->post('char', TRUE);
 				$data['query'] = $this->cabal_character_table->GetWhere("Name LIKE '%$char%'", NULL, NULL);
 				if($data['query']->num_rows() < 1) {
-					$data['info'] = 'Cant find the character you are looking for, Please check the spelling';
+					$data['info'] = 'Cant find the character you are looking for, please check the spelling';
 				} else {
 					$data['info'] = 'Click on the character name to proceed';
 				}
